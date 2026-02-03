@@ -7,13 +7,6 @@ use minigrep_lib::search;
 fn main() {
     
 	let argument: Vec<String> = env::args().collect();
-/* 
-//commented out to try match control flow construct equivalent
-	let config = Config::build(&argument).unwrap_or_else(|err| {
-		println!("Problem parsing arguments: {err}");
-		process::exit(1);
-	});
-*/
 
 	let config = match Config::build(&argument){
 		Ok(val) => val,
@@ -21,16 +14,8 @@ fn main() {
 			  process::exit(1);}
 	};
 
-
 	println!("Searching for {}", config.query);
 	println!("In file {}", config.file_path);
-/* 
-//commented out to try match control flow construct equivalent
-	if let Err(e) = run(config){
-		println!("Application error: {e}");
-		process::exit(1);
-	}; 
-*/
 
 	match run(config){
 		Ok(_) => (),
