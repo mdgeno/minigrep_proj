@@ -36,9 +36,11 @@ impl Config{
 			return Err("not enough arguments");
 		}
 
-		//set the case_on field
-
-		Ok(Config{ query: args[1].clone(), file_path: args[2].clone() })
+		Ok(Config{ 
+			   query: args[1].clone(), 
+			   file_path: args[2].clone(),
+			   case_on: env::var("CASE").is_ok() 
+			  })
 	}
 }
 
@@ -46,8 +48,8 @@ fn run(config: Config) -> Result<(), Box<dyn Error>>{
 	let lines = fs::read_to_string(config.file_path)?;  
 
 	let result = match config.case_on{
-		true => search(&config.query, &lines),
-		false => search_case_insensitive(&config.query, &lines)	
+		true => search_case_insensitive(&config.query, &lines),	
+		false => search(&config.query, &lines)
 	};
 
 	for line in result{
