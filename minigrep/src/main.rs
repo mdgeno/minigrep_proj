@@ -10,7 +10,7 @@ fn main() {
 
 	let config = match Config::build(&argument){
 		Ok(val) => val,
-		Err(e) => {println!("Problem parisng arguments: {e}");
+		Err(e) => {eprintln!("Problem parisng arguments: {e}");
 			  process::exit(1);}
 	};
 
@@ -19,7 +19,7 @@ fn main() {
 
 	match run(config){
 		Ok(_) => (),
-		Err(e) => {println!("Application error: {e}");
+		Err(e) => {eprintln!("Application error: {e}");
 			  process::exit(1);}
 	}
 }
